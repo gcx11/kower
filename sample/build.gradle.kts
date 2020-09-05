@@ -3,7 +3,6 @@ plugins {
 }
 
 group = "me.gcx11"
-version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(project(":lib"))

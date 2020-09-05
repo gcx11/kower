@@ -3,7 +3,12 @@ plugins {
 }
 
 group = "me.gcx11"
-version = "1.0-SNAPSHOT"
+
+artifacts {
+    base {
+        archivesBaseName = "kower"
+    }
+}
 
 dependencies {
 }
