@@ -2,4 +2,4 @@
 
 Kotlin WebGL Renderer
 
-Run with `./gradlew browserProductionRun`
+Run with `./gradlew :sample:browserProductionRun`
