@@ -2,11 +2,9 @@ plugins {
     kotlin("js") version "1.4.0"
 }
 
-group = "me.gcx11"
-
 artifacts {
     base {
-        archivesBaseName = "kower"
+        archivesBaseName = rootProject.name
     }
 }
 
