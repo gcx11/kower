@@ -9,7 +9,7 @@ allprojects {
 }
 
 val libraryGroup = "me.gcx11"
-val libraryVersion = "0.0.1"
+val libraryVersion = "0.0.2"
 
 subprojects {
     group = libraryGroup
