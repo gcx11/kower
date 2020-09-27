@@ -1,6 +1,6 @@
 package me.gcx11.kower
 
-class CircleShaderBundle(
+class ArcShaderBundle(
     gl: WebGL2RenderingContext,
     compiledVertexShader: CompiledVertexShader,
     compiledFragmentShader: CompiledFragmentShader
@@ -10,4 +10,6 @@ class CircleShaderBundle(
     val colorUniformLocation = linkedProgram.getUniformLocation(gl, "u_color")
     val centerUniformLocation = linkedProgram.getUniformLocation(gl, "u_center")
     val radiusUniformLocation = linkedProgram.getUniformLocation(gl, "u_radius")
+    val startingAngleUniformLocation = linkedProgram.getUniformLocation(gl, "u_starting_angle")
+    val endingAngleUniformLocation = linkedProgram.getUniformLocation(gl, "u_ending_angle")
 }
