@@ -17,6 +17,11 @@ class WebGL2Renderer(
     private val arcShaderBundle = ArcShaderBundle(gl, compiledVertexShader, arcFragmentShader)
     private val emptyArcShaderBundle = EmptyArcShaderBundle(gl, compiledVertexShader, emptyArcFragmentShader)
 
+    init {
+        gl.enable(WebGL2RenderingContext.BLEND)
+        gl.blendFunc(WebGL2RenderingContext.SRC_ALPHA, WebGL2RenderingContext.ONE_MINUS_SRC_ALPHA)
+    }
+
     override val width: Int
         get() = gl.canvas.clientWidth
 

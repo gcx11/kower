@@ -6,8 +6,11 @@ import org.w3c.dom.HTMLCanvasElement
 external class WebGL2RenderingContext {
     val canvas: HTMLCanvasElement
 
+    fun enable(cap: Int)
     fun clear(mask: Int)
     fun clearColor(red: Float, green: Float, blue: Float, alpha: Float)
+    fun colorMask(red: Boolean, green: Boolean, blue: Boolean, alpha: Boolean)
+    fun blendFunc(sFactor: Int, dFactor: Int)
     fun compileShader(shader: WebGLShader)
     fun createShader(type: Int): WebGLShader
     fun shaderSource(shader: WebGLShader, code: String)
@@ -47,6 +50,11 @@ external class WebGL2RenderingContext {
         val LINK_STATUS: Int
         val STATIC_DRAW: Int
         val TRIANGLES: Int
+        val BLEND: Int
+        val ZERO: Int
+        val ONE: Int
+        val SRC_ALPHA: Int
+        val ONE_MINUS_SRC_ALPHA: Int
     }
 }
 

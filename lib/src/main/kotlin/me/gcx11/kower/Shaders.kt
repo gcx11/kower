@@ -51,8 +51,11 @@ void main() {
     float x = gl_FragCoord.x;
     float y = u_resolution.y - gl_FragCoord.y;
 
-    if ((x-u_center.x)*(x-u_center.x)+(y-u_center.y)*(y-u_center.y) > u_radius*u_radius) discard;
-    outColor = u_color;
+    float edge_ratio = ((x-u_center.x)*(x-u_center.x)+(y-u_center.y)*(y-u_center.y)) / (u_radius*u_radius);
+    float limit = 1.0 - 0.2 / (1.0 + u_radius*u_radius / 4000.0);
+    float alpha = smoothstep(1.0, limit, edge_ratio);
+
+    outColor = vec4(u_color.r, u_color.g, u_color.b, alpha);
 }
     """.trimIndent())
 }
@@ -86,11 +89,14 @@ void main() {
     float direction_x = x-u_center.x;
     float direction_y = y-u_center.y;
 
-    if (direction_x*direction_x+direction_y*direction_y > u_radius*u_radius) discard;
+    float edge_ratio = (direction_x*direction_x+direction_y*direction_y) / (u_radius*u_radius);
+    float limit = 1.0 - 0.2 / (1.0 + u_radius*u_radius / 4000.0);
+    float alpha = smoothstep(1.0, limit, edge_ratio);
 
     float angle = atan2(direction_y, direction_x);
     if (angle < u_starting_angle || angle > u_ending_angle) discard;
-    outColor = u_color;
+
+    outColor = vec4(u_color.r, u_color.g, u_color.b, alpha);
 }
     """.trimIndent())
 }
@@ -128,12 +134,18 @@ void main() {
     float outer_radius = u_radius + u_thickness / 2.0;
     float inner_radius = u_radius - u_thickness / 2.0;
 
-    if (direction_x*direction_x+direction_y*direction_y > outer_radius*outer_radius) discard;
-    if (direction_x*direction_x+direction_y*direction_y < inner_radius*inner_radius) discard;
-
     float angle = atan2(direction_y, direction_x);
     if (angle < u_starting_angle || angle > u_ending_angle) discard;
-    outColor = u_color;
+
+    float outer_edge_ratio = (direction_x*direction_x+direction_y*direction_y) / (outer_radius*outer_radius);
+    float outer_limit = 1.0 - 0.2 / (1.0 + outer_radius*outer_radius / 2000.0);
+    float outer_alpha = smoothstep(1.0, outer_limit, outer_edge_ratio);
+    
+    float inner_edge_ratio = (direction_x*direction_x+direction_y*direction_y) / (inner_radius*inner_radius);
+    float inner_limit = 1.0 - 0.2 / (1.0 + inner_radius*inner_radius / 2000.0);
+    float inner_alpha = smoothstep(inner_limit, 1.0, inner_edge_ratio);
+
+    outColor = vec4(u_color.r, u_color.g, u_color.b, min(inner_alpha, outer_alpha));
 }
     """.trimIndent())
 }
